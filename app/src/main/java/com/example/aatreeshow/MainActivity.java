@@ -41,9 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void Refreshtree(){
+    private void Refreshtree(){
         for(int num : arbol.inorder()) {
             arbolshow.append(num+" ");
         }
+    }
+    public void Resetarbol(View view){
+        arbol = new AAtree();
+        arbolshow.setText("");
     }
 }
