@@ -1,28 +1,31 @@
 package com.example.aatreeshow;
 
+import java.util.ArrayList;
+
 public class AAtree {
     private AAnode root;// raíz
     static AAnode nil = new AAnode();//nodo base
-    private int size;
+    public int size;
 
-    AAtree(){//constructor
+
+    public AAtree(){//constructor
         root = nil;
     }
 
-    Boolean Empty(){//determina si la lista esta vacía
+    public Boolean Empty(){//determina si la lista esta vacía
         return root==null;
     }
 
-    void Clear(){//elimina el arbol
+    public void Clear(){//elimina el arbol
         root = null;
     }
 
-    void Insert(int dato){
+    public void Insert(int dato){
         root = insert(dato, this.root);
 
     }
 
-    AAnode insert(int dato, AAnode P){//compara el dato con los datos de los nodos para encontrar su posición
+    private AAnode insert(int dato, AAnode P){//compara el dato con los datos de los nodos para encontrar su posición
         if (P == nil) {
             P = new AAnode();
             P.dato = dato;
@@ -41,10 +44,11 @@ public class AAtree {
 
         P = skew(P);//primera operación de mantenimiento
         P = split(P);//segunda operación de mantenimiento
+        size++;
         return P;
     }
 
-    AAnode skew(AAnode nodo){//primera operación de mantenimiento
+    private AAnode skew(AAnode nodo){//primera operación de mantenimiento
         if (nodo == nil) {
             return nil;
         } else if (nodo.izquierdo == nil){
@@ -63,7 +67,7 @@ public class AAtree {
 
     }
 
-    AAnode split(AAnode nodo) {
+    private AAnode split(AAnode nodo) {
         //segunda operación de mantenimiento
         if (nodo == nil) {
             return nil;
@@ -85,11 +89,11 @@ public class AAtree {
     }
 
 
-    void Eliminar(int dato){
+    public void Eliminar(int dato){
         eliminar(dato, this.root);
     }
 
-    AAnode eliminar(int dato, AAnode nodo){//elimina un nodo y balancea el árbol
+    private AAnode eliminar(int dato, AAnode nodo){//elimina un nodo y balancea el árbol
         if(nodo==nil){
             return nodo;
         }else if(dato>nodo.dato){
@@ -118,11 +122,12 @@ public class AAtree {
         }
         nodo = split(nodo);
         nodo.derecho = split(nodo.derecho);
+        size--;
         return nodo;
     }
 
     private AAnode decreserNivel(AAnode nodo){//envia el nodo a un nivel menor
-        int aux = min(nodo.izquierdo.nivel,nodo.derecho.nivel)+1;
+        int aux = Math.min(nodo.izquierdo.nivel,nodo.derecho.nivel)+1;
 
         if(aux < nodo.nivel){
             nodo.nivel = aux;
@@ -163,24 +168,27 @@ public class AAtree {
         return aux;
     }
 
-    int GetSize(){
+    public int GetSize(){
         return size;
     }
 
 
     //recorrido
-    public void inorder()
+    public ArrayList<Integer> inorder()
     {
-        Inorder(this.root);
+        ArrayList<Integer> arr = new ArrayList<>();
+        return Inorder(this.root, arr);
     }
-    public void Inorder(AAnode r)
-    {
-        if (r != nil)
-        {
-            Inorder(r.izquierdo);
-            System.out.println(r.dato);
-            Inorder(r.derecho);
+    public ArrayList<Integer> Inorder(AAnode root, ArrayList<Integer> arr) {
+        if (root != nil){
+            Inorder(root.izquierdo,arr);
+            arr.add(root.dato);
+            Inorder(root.derecho,arr);
         }
+        return  arr;
     }
 
+    public AAnode Getroot() {
+        return this.root;
+    }
 }
