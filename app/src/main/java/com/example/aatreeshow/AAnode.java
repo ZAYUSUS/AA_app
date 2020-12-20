@@ -16,6 +16,12 @@ public class AAnode {
         this.derecho = this;
         this.nivel = 0;
     }
+    public AAnode(int ele,AAnode izquierdo,AAnode derecho){
+        this.dato = ele;
+        this.izquierdo = izquierdo;
+        this.derecho = derecho;
+        this.nivel = 1;
+    }
     void setDato(int dato) {
         this.dato = dato;
     }

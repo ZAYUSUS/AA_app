@@ -13,11 +13,11 @@ public class AAtree {
     }
 
     public Boolean Empty(){//determina si la lista esta vacía
-        return root==null;
+        return root==nil;
     }
 
     public void Clear(){//elimina el arbol
-        root = null;
+        root = nil;
     }
 
     public void Insert(int dato){
@@ -27,11 +27,7 @@ public class AAtree {
 
     private AAnode insert(int dato, AAnode P){//compara el dato con los datos de los nodos para encontrar su posición
         if (P == nil) {
-            P = new AAnode();
-            P.dato = dato;
-            P.izquierdo = nil;
-            P.derecho = nil;
-            P.nivel = 1;
+            P = new AAnode(dato,nil,nil);
         } else if ( dato < P.dato ){
             P.izquierdo = insert(dato, P.izquierdo);
         }
@@ -80,7 +76,7 @@ public class AAtree {
             nodo.derecho = aux.izquierdo;
             aux.izquierdo = nodo;
 
-            aux.nivel += 1;
+            aux.nivel = aux.nivel+1;
             return aux;
         }
         else {
@@ -179,13 +175,43 @@ public class AAtree {
         ArrayList<Integer> arr = new ArrayList<>();
         return Inorder(this.root, arr);
     }
-    public ArrayList<Integer> Inorder(AAnode root, ArrayList<Integer> arr) {
+    private ArrayList<Integer> Inorder(AAnode root, ArrayList<Integer> arr) {
         if (root != nil){
             Inorder(root.izquierdo,arr);
             arr.add(root.dato);
             Inorder(root.derecho,arr);
         }
         return  arr;
+    }
+
+    public ArrayList<Integer> preorder(){
+        ArrayList<Integer> arr = new ArrayList<>();
+        return Preorder(this.root, arr);
+    }
+
+    private ArrayList<Integer> Preorder(AAnode root, ArrayList<Integer> arr){
+        if (root != nil)
+        {
+            arr.add(root.dato);
+            Preorder(root.izquierdo,arr);
+            Preorder(root.derecho,arr);
+        }
+        return arr;
+    }
+
+    public ArrayList<Integer> postorder(){
+        ArrayList<Integer> arr = new ArrayList<>();
+        return Postorder(this.root, arr);
+    }
+
+    private ArrayList<Integer> Postorder(AAnode root, ArrayList<Integer> arr){
+        if (root != nil)
+        {
+            Postorder(root.izquierdo,arr);
+            Postorder(root.derecho,arr);
+            arr.add(root.dato);
+        }
+        return arr;
     }
 
     public AAnode Getroot() {

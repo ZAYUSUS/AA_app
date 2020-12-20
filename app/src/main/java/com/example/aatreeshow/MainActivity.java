@@ -24,8 +24,11 @@ public class MainActivity extends AppCompatActivity {
         entrada = (TextInputEditText)findViewById(R.id.entrada);
         arbolshow = (TextView)findViewById(R.id.Arbolview);
 
-        arbol.Insert(34);
-        arbol.Insert(12);
+        arbol.Insert(24);
+        arbol.Insert(5);
+        arbol.Insert(28);
+        arbol.Insert(6);
+        arbol.Insert(94);
 
     }
 
@@ -42,9 +45,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Refreshtree(){
+        arbolshow.append("inorder:");
         for(int num : arbol.inorder()) {
             arbolshow.append(num+" ");
         }
+        arbolshow.append("\n");
+        arbolshow.append("preorder:");
+        for(int num : arbol.preorder()) {
+            arbolshow.append(num+" ");
+        }
+        arbolshow.append("\n");
+        arbolshow.append("postorder:");
+        for(int num : arbol.postorder()) {
+            arbolshow.append(num+" ");
+        }
+
     }
     public void Resetarbol(View view){
         arbol = new AAtree();
